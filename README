@@ -2,24 +2,19 @@
 PUTRAMA
 ========
 
-This is a small script that will use one of the german public transport server (VRR/EFA) to
-compute the travel time from a whole map to a given destination point. 
+This is a small script that will use one of the german public transport server (VRR/EFA) to compute the travel time from a whole map to a given destination point. 
 
-The name is an abbreviation for PUblich TRAnsport MAp.
+The name is an abbreviation for PUblic TRAnsport MAp.
 
-Putrama is a Linux perl script and builds heavily on WWW::EFA and Travel::Routing::DE::VRR.
-(Actually i somehow had to use both, because of compile errors, might be my Ubuntu beta?)
-Furthermore it uses certain libraries like XML, GD..
+Putrama is a Linux perl script and builds heavily on WWW::EFA and Travel::Routing::DE::VRR. (Actually i somehow had to use both, because of compile errors, might be my Ubuntu beta?) Furthermore it uses certain libraries like XML, GD..
 
-Note that Putrama uses at least sed to modify the file written by Geo::KML::Polymap,
-unluckily the module does not allow for parameters.
+Note that Putrama uses at least sed to modify the file written by Geo::KML::Polymap, unluckily the module does not allow for parameters.
 
 Putrama will produce a .KML file, you can easily load with Google Earth for viewing purposes.
 
 Putrama was programmed on the first INI-hackatron (http://www.ini.rub.de), 21th october 2014.
 
-Source code can be found under https://github.com/aydindemircioglu/putrama,
-the website with an example map is at http://aydindemircioglu.github.io/putrama.
+Source code can be found under https://github.com/aydindemircioglu/putrama, the website with an example map is at http://aydindemircioglu.github.io/putrama.
 
 This software is licenced by a MIT licence, you are free to use it in any way you want.
 
@@ -29,8 +24,7 @@ Usage
 
 $ ./putrama.pl [options]
 
-There are many options, some are from the Travel::Routing::DE package, some are new.
-Those that can be reasonably used are the following:
+There are many options, some are from the Travel::Routing::DE package, some are new. Those that can be reasonably used are the following:
 
 	--arrive HH:MM
 		arrival time, e.g. 10:00 in the morning to get in time to the morning lectures.
@@ -63,7 +57,9 @@ Those that can be reasonably used are the following:
 		verbosity level, 0 = few outputs, 100 = all outputs.
 
 The map on this website was created with 
-$ ./putrama.pl --gridsizelong 64 --gridsizelat 64 --startlat 51.340 -endlat 51.750  --startlong 7 --endlong 7.5 --date 6.11.2014 --verbosity 100
+$ ./putrama.pl --gridsizelong 64 --gridsizelat 64  --startlat 51.58 --endlat 51.37 --endlong 7.45 --date 6.11.2014 --verbosity 100
+For test purposes, you could try
+$ ./putrama.pl --gridsizelong 5 --gridsizelat 9 --startlat 51.320 -endlat 51.750 --startlong 7 --endlong 7.5 --date 6.11.2014 --verbosity 100
 
 
 Links

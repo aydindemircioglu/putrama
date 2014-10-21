@@ -249,14 +249,15 @@ sub get_doc {
 }
 
 
-sub coord_request {
+
+sub _coord_request {
 	# get parameter
     my $base_url = "http://efa.vrr.de/vrr/";
     my $longitude = $_[1];
     my $latitude = $_[2];
     
     my $max_results = 3;
-    my $max_distance = 1320;
+    my $max_distance = 2000;
 
 #    print "Trying to dissolve $longitude, $latitude\n";
 
@@ -288,11 +289,31 @@ sub coord_request {
     foreach my $coord_elem( $doc->findnodes( 'itdCoordInfo/coordInfoItemList/coordInfoItem' ) ){
         my $location = $location_factory->location_from_coordInfoItem( $coord_elem );
         push( @locations, $location );
-#print " -".$location->name.", ".$location->locality.", ".$location->id."\n";
     }
 
-	#print "  Found ". $locations[0]->name. "/". $locations[0]->locality."\n";
-    return ($locations[0]->name, $locations[0]->locality, $locations[0]->distance);
+	return (@locations)
+}
+
+
+
+sub coord_request {
+	# get parameter
+    my $base_url = "http://efa.vrr.de/vrr/";
+    my $longitude = $_[1];
+    my $latitude = $_[2];
+    
+    my $retries = 4;
+    for (my $i = 0; $i < $retries; $i++) {
+		my @locations = _coord_request ($base_url, $longitude, $latitude);
+
+		if ($locations[0]) {
+			return ($locations[0]->name, $locations[0]->locality, $locations[0]->distance);		
+		}
+
+		print ("  Retrying.\n");
+		$longitude = $longitude + 0.001;
+		$latitude = $latitude + 0.001;
+	}
 }
 
 
@@ -710,14 +731,14 @@ if ( $opt->{service} ) {
 	}
 
 	if ($opt -> {colorbins} < $polyCounter) {
-		$opt -> {colorbins} = $polyCounter/2;
+		$opt -> {colorbins} = round($polyCounter/2);
 		print ("  Too many color bins, setting it to half the data points, i.e. to ", $opt -> {colorbins});
 	}
 	
 	open (my $fh, '>', $kmlfilename) or die "cannot write file?";
 	generate_kml_file(entities => $polygonList,
-							placename => "TODO",
-							data_desc => "Average time to travel to destination",
+							placename => "putrama",
+							data_desc => "Average time",
 							nbins => $opt -> {colorbins},
 							kmlfh => $fh,
 							startcolor => $startcolor,
