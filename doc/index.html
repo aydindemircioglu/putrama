@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<!--[if IE 6]>
+<html id="ie6" dir="ltr" lang="en-US">
+<![endif]-->
+<!--[if IE 7]>
+<html id="ie7" dir="ltr" lang="en-US">
+<![endif]-->
+<!--[if IE 8]>
+<html id="ie8" dir="ltr" lang="en-US">
+<![endif]-->
+<!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!-->
+<html dir="ltr" lang="en-US">
+    <!--<![endif]-->
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width" />
+
+        
+    <style>
+      #map_canvas {
+        width: 500px;
+        height: 400px;
+      }
+    </style>
+
+    <script src="https://maps.googleapis.com/maps/api/js"></script>
+  <script>
+
+	var map;
+	var src = './rub.kml';
+
+	function initialize() {
+        var mapCanvas = document.getElementById('map_canvas');
+        var mapOptions = {
+          center: new google.maps.LatLng(51.4730, 7.220),
+          zoom: 11,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+        var map = new google.maps.Map(mapCanvas, mapOptions)
+		loadKmlLayer(src, map);
+      }
+      
+      
+		/**
+		* Adds a KMLLayer based on the URL passed. Clicking on a marker
+		* results in the balloon content being loaded into the right-hand div.
+		* @param {string} src A URL for a KML file.
+		*/
+		function loadKmlLayer(src, map) {
+		var kmlLayer = new google.maps.KmlLayer(src, {
+			suppressInfoWindows: true,
+			preserveViewport: false,
+			map: map
+		});
+		google.maps.event.addListener(kmlLayer, 'click', function(event) {
+			var content = event.featureData.infoWindowHtml;
+			var testimonial = document.getElementById('capture');
+			testimonial.innerHTML = content;
+		});
+		}
+
+      
+      google.maps.event.addDomListener(window, 'load', initialize);
+    </script>
+    <title>putrama</title>
+        
+        <link rel="stylesheet" type="text/css" media="all" href="style.css" />
+        <link rel="stylesheet" type="text/css" media="screen and (max-width: 960px)" href="css/lessthen800.css" />
+        <link rel="stylesheet" type="text/css" media="screen and (max-width: 600px)" href="css/lessthen600.css" />
+        <link rel="stylesheet" type="text/css" media="screen and (max-width: 480px)" href="css/lessthen480.css" />
+                                   
+        <!-- CUSTOM STYLE -->                                                                        
+        <link rel="stylesheet" type="text/css" media="all" href="css/custom-style.css" />
+        
+        <!-- [favicon] begin -->
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+        <link rel="icon" type="image/x-icon" href="favicon.ico" />
+        <!-- [favicon] end -->  
+        
+        <!-- MAIN FONT STYLE -->  
+<link href='http://fonts.googleapis.com/css?family=Quattrocento+Sans:400,400italic,700' rel='stylesheet' type='text/css'>
+<!-- END MAIN FONT STYLE -->  
+    </head>
+    
+    <body class="home image-sphere-style responsive">
+    
+        <!-- START SHADOW WRAPPER -->
+        <div class="shadowBg group">
+            
+            <!-- START WRAPPER -->
+            <div class="wrapper group">
+                
+                <!-- START TOPBAR -->
+                <div id="topbar">
+                    <div class="inner">
+                        <div class="clear"></div>
+                    </div>
+                    <!-- end.inner -->
+                </div>
+                <!-- END TOPBAR -->   
+                 
+                <!-- START HEADER -->
+                <div id="header" class="group" style="z-index:1111;">
+                        putrama
+                </div>
+                <!-- END HEADER -->        
+                             
+                 
+                
+                <!-- HOME SECTIONS -->   
+                <div class="home-sections">
+                
+                    <!-- SECTION #1 -->
+                    <div class="section gradient   group" style="background:#ffffff; margin-top:-55px; margin-bottom:-140px;">
+                        <div class="section-title for-not-mobile">
+                            <h2> </h2>
+                        </div>
+                        <div class="section-content">
+                            <h2 class="for-mobile"></h2>
+                            <p>rub public transport map
+                        </div> 
+                    </div>               
+                    <!-- END SECTION #1 -->
+                     
+                    <div class="section gradient   group" style="background:#ffffff; margin-top:-55px; margin-bottom:-60px;">
+                        <div class="section-title for-not-mobile">
+                            <h2>idea</h2>
+                        </div>
+                        <div class="section-content">
+                            <p>a lot of students, when moving to a new city, are new to the neighborhood and might not know how long
+                            it actually takes to the university. so create a map that shows in overlayed colors how long it will take from a 
+                            given location to the university by using the public transport system.</p>
+                        </div> 
+                    </div>               
+
+                    <div class="section gradient   group" style="background:#ffffff; margin-top:-55px; margin-bottom:-60px;">
+                        <div class="section-title for-not-mobile">
+                            <h2>notes</h2>
+                        </div>
+                        <div class="section-content">
+                            <p>the distance to the stop is not accurate, but is measured as the distance to the <b>next</br> stop.
+                            routes may take different stops.
+                        </div> 
+                    </div>               
+
+
+                    <div class="section gradient   group">
+                        <div class="section-title for-not-mobile">
+                            <h2>usage</h2>
+                        </div>
+                        <div class="section-content">
+                            <p>for now everything is quite hardcoded. roughly you need to hack the rectangle of 'start'points (in latitute/longitude coordinates),
+                            add the date and hour to consider, and run the script. it will create a .kml file, with the, named like "map_coord_time.kml".
+                            this map you can now easily open in google earth, or use any other geo program that can overlay that to the map you want.
+
+                            <p> prerequisites for the script: Geo::KML::PolyMap.
+                        </div> 
+                    </div>               
+
+                    <div class="section gradient   group">
+                        <div class="section-title for-not-mobile">
+                            <h2>downloads</h2>
+                        </div>
+                        <div class="section-content">
+                            <p><a href="map_9h.jpg">10:00h map</a>
+                            <br><a href="map_back_18h.jpg">18:00h return map</a>
+                            <p><a href="code.zip">source code (see also github)</a>
+
+                        </div> 
+                    </div>               
+
+                    <div class="section gradient   group">
+                        <div class="section-title for-not-mobile">
+                            <h2>example</h2>
+                        </div>
+                        <div class="section-content">
+                                <div id="map_canvas"></div>
+                        </div> 
+                    </div>               
+                    
+                    </div>   
+                <!-- END HOME SECTIONS -->   
+                 
+
+                <!-- START TWITTER -->
+                <div id="myfooter" class="" style="margin-top:100px;">
+		    <p class="center">theme template by <a href="http://www.yourinspirationweb.com/en">Your Inspiration Web</a></p>                    <div class="bird"></div>
+                </div>
+                <!-- END TWITTER -->   
+                   
+            </div>
+            <!-- END WRAPPER --> 
+            	    
+        </div>
+        <!-- END SHADOW -->       
+        
+    </body>
+</html>
