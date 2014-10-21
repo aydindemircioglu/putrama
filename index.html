@@ -142,7 +142,7 @@
                         </div>
                         <div class="section-content">
                             <p>-the distance to the stop is not accurate, but is measured as the distance to the <b>next</b> stop.
-                            different routes may take part from different stops, this is not considered for now.
+                            different routes may take part from different stops, this is not considered for now. therefore the maps are only rough estimations.
                             <br>-not always all tiles load, i am not sure why, one thing is that routing does not apply, if the goal is very near, e.g.
                             from the 'botanischer garten' to the ruhr-universitaet stop. 
                             <br>-this was coded during the first hackathon at the <a href="http://www.ini.rub.de">institute for neural computations, bochum, germany</a>.<br>
@@ -156,14 +156,20 @@
                             <h2>usage</h2>
                         </div>
                         <div class="section-content">
-                            <p>for now everything is quite hardcoded. roughly you need to hack the rectangle of 'start'points (in latitute/longitude coordinates),
-                            add the date and hour to consider, and run the script. it will create a .kml file, with the, named like "map_coord_time.kml".
-                            this map you can now easily open in google earth, or use any other geo program that can overlay that to the map you want.
+                            <p>for now everything is very rough at the edges. but still i tried to add a usuable command line interface.
+                            roughly you need to add the rectangle to search (in latitute/longitude coordinates),
+                            the resolution of that by specifying the number of grid points you want,
+                            add the date (not that important, it will use next weeks data, which is a reasonable choice)
+                            and the hour to consider (hours can make a huge difference, e.g. night time everything will take longer).
+                            then you just run the script. it will create a .kml file, 
+                            which you can now easily open in google earth, or use any other geo program that can overlay kml.
 
                             <p> prerequisites for the script: VRR::EFA, Travel::Routing::DE::VRR, Geo::KML::PolyMap just to name some.
+                            i had some trouble getting everything run, no guarantee that all these libraries work out well for you.
+                            i've added local versions of VRR::EFA and Travel::Routing, that was somehow crucial for me.
                             
                             <p>
-  There are many options, some are from the Travel::Routing::DE package, some are new.
+  There are many options, some are from the Travel::Routing::DE package, some are new. Some of them i do not use at all.
 Those that can be reasonably used are the following:<p>
 <pre>
 	$ ./putrama.pl [options]
@@ -201,7 +207,7 @@ Those that can be reasonably used are the following:<p>
 
 <p>The map on this website was created with 
 <br><pre>
-$ ./putrama.pl --gridsizelong 64 --gridsizelat 64 --startlat 51.340 -endlat 51.750  --startlong 7 --endlong 7.5 --date 6.11.2014 --verbosity 100
+$ ./putrama.pl --gridsizelong 64 --gridsizelat 64  --startlat 51.58 --endlat 51.37 --endlong 7.45 --date 6.11.2014 --verbosity 100
 </pre>
 
                         </div> 
