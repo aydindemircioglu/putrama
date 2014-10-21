@@ -1,0 +1,72 @@
+
+PUTRAMA
+========
+
+This is a small script that will use one of the german public transport server (VRR/EFA) to
+compute the travel time from a whole map to a given destination point. 
+
+The name is an abbreviation for PUblich TRAnsport MAp.
+
+Putrama is a Linux perl script and builds heavily on WWW::EFA and Travel::Routing::DE::VRR.
+(Actually i somehow had to use both, because of compile errors, might be my Ubuntu beta?)
+Furthermore it uses certain libraries like XML, GD..
+
+Note that Putrama uses at least sed to modify the file written by Geo::KML::Polymap,
+unluckily the module does not allow for parameters.
+
+Putrama will produce a .KML file, you can easily load with Google Earth for viewing purposes.
+
+Putrama was programmed on the first INI-hackatron (http://www.ini.rub.de), 21th october 2014.
+
+Source code can be found under https://github.com/aydindemircioglu/putrama,
+the website with an example map is at http://aydindemircioglu.github.io/putrama.
+
+This software is licenced by a MIT licence, you are free to use it in any way you want.
+
+
+Usage
+-------
+
+$ ./putrama.pl [options]
+
+There are many options, some are from the Travel::Routing::DE package, some are new.
+Those that can be reasonably used are the following:
+
+	--arrive HH:MM
+		arrival time, e.g. 10:00 in the morning to get in time to the morning lectures.
+	--colorbins #
+		number of bins to threshold the final connection times. Defaults to 32 (if enough tiles are queried).
+	--date DD.MM.YYYY
+		date when to query the connections. weekdays should be faster than weekends,
+		day connections faster than night connections.
+	--endcolor AABBGGRR
+		color for slow connections, alpha value, blue value, green value, red value in hexadecimal.
+	--endlat #
+		end latitute of grid.
+	--endlong #
+		end longitute of grid.
+	--gridsizelat #
+		how many tiles in latitute direction should be created?
+	--gridsizelong #
+		how many tiles in longitude direction should be created?
+	--kmlfilename filename
+		filename for kml output
+	--startcolor AABBGGRR
+		color for fast connections, alpha value, blue value, green value, red value in hexadecimal.
+	--startlat #
+		start latitute of grid.
+	--startlong=f
+		start longitute of grid.
+	--to city, stop 
+		specify where the connections should go to. 
+	--verbosity #
+		verbosity level, 0 = few outputs, 100 = all outputs.
+
+The map on this website was created with 
+$ ./putrama.pl --gridsizelong 64 --gridsizelat 64 --startlat 51.340 -endlat 51.750  --startlong 7 --endlong 7.5 --date 6.11.2014 --verbosity 100
+
+
+Links
+-----
+
+http://derf.homelinux.org/projects/Travel-Routing-DE-VRR/
